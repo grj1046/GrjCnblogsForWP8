@@ -10,7 +10,7 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait" Orientation="Portrait"
+    SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot 是包含所有页面内容的根网格-->
@@ -40,15 +40,30 @@
          -->
 
         <!--TitlePanel 包含应用程序的名称和页标题-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="我的应用程序" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0"/>
-            <TextBlock Text="页面名称" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
-        </StackPanel>
+        <TextBlock x:Name="title" Text="我的应用程序" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,17,0,0"/>
+
+        <phone:Panorama Margin="12,0"
+                        Grid.Row="1">
+            <phone:PanoramaItem>
+                <phone:PanoramaItem.Header>
+                    <TextBlock Text="首页"/>
+                </phone:PanoramaItem.Header>
+                <phone:PanoramaItem.Content>
+                    <TextBlock Text="Hello World"/>
+                </phone:PanoramaItem.Content>
+            </phone:PanoramaItem>
+            <phone:PanoramaItem Header="个人中心">
+                <phone:PanoramaItem.Content>
+                    <TextBlock Text="Hello World"/>
+                </phone:PanoramaItem.Content>
+            </phone:PanoramaItem>
+        </phone:Panorama>
+
 
         <!--ContentPanel - 在此处放置其他内容-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+        <!--<Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
 
-        </Grid>
+        </Grid>-->
 
         <!--取消注释，以显示对齐网格，从而帮助确保
             控件在公用边界上对齐。图像在系统栏中显示时的
