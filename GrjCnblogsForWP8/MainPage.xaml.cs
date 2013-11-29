@@ -8,6 +8,13 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using GrjCnblogsForWP8.Resources;
+using System.IO;
+using System.Windows.Resources;
+using System.Xml;
+using System.Threading.Tasks;
+using GrjCnblogsForWP8.Models;
+using System.Collections.ObjectModel;
+using System.Xml.Linq;
 
 namespace GrjCnblogsForWP8
 {
@@ -17,9 +24,21 @@ namespace GrjCnblogsForWP8
         public MainPage()
         {
             InitializeComponent();
-
             // 用于本地化 ApplicationBar 的示例代码
             //BuildLocalizedApplicationBar();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+        }
+
+
+        private void HomeNav_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            FrameworkElement fe = sender as FrameworkElement;
+            NavItem nav = fe.DataContext as NavItem;
+            MessageBox.Show(nav.Title);
         }
 
         // 用于生成本地化 ApplicationBar 的示例代码

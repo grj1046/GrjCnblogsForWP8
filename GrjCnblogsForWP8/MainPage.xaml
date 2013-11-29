@@ -6,41 +6,27 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:GrjCnblogsForWP8.ViewModels"
+    xmlns:primitive="clr-namespace:GrjCnblogsForWP8.Primitive"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
-    shell:SystemTray.IsVisible="True">
-
-    <!--LayoutRoot 是包含所有页面内容的根网格-->
+    shell:SystemTray.IsVisible="True"
+    primitive:TiltEffect.IsTiltEnabled="True">
+    <phone:PhoneApplicationPage.DataContext>
+        <vm:HomeViewModel/>
+    </phone:PhoneApplicationPage.DataContext>
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <!-- 本地化说明:
-            若要本地化显示的字符串，请将其值复制到应用程序的非特定语言资源文件(AppResources.resx)
-            中的适当命名的键，然后
-            将属性的引号之间的硬编码文本值
-            替换为其路径指向该字符串名称的绑定子句。
-
-            例如:
-
-                Text="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}"
-
-            此绑定指向模板的名为“ApplicationTitle”的字符串资源。
-
-            在“项目属性”选项卡中添加受支持的语言将会为
-            每种语言创建一个新的 resx 文件，该文件可以包含 UI 字符串的翻译值
-            。这些示例中的绑定将导致在运行时从
-            与应用程序的 CurrentUICulture 匹配的 .resx 文件中
-            提取属性的值。
-         -->
-
-        <!--TitlePanel 包含应用程序的名称和页标题-->
-        <TextBlock x:Name="title" Text="我的应用程序" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,17,0,0"/>
+        <TextBlock x:Name="title" 
+                   Style="{StaticResource PhoneTextNormalStyle}" 
+                   Margin="12,17,0,0"
+                   Text="{Binding LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}" />
 
         <phone:Panorama Margin="12,0"
                         Grid.Row="1">
@@ -49,12 +35,32 @@
                     <TextBlock Text="首页"/>
                 </phone:PanoramaItem.Header>
                 <phone:PanoramaItem.Content>
-                    <TextBlock Text="Hello World"/>
+                    <phone:LongListSelector x:Name="llsNav" 
+                                            Margin="8,0,8,25"
+                                            LayoutMode="Grid"
+                                            GridCellSize="160,150"
+                                            ItemsSource="{Binding Navigations}">
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="5" Padding="5" 
+                                Background="Blue"
+                                BorderThickness="0"
+                                BorderBrush="{StaticResource PhoneForegroundBrush}"
+                                Tap="HomeNav_Tap">
+                                    <TextBlock TextWrapping="Wrap"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Bottom"
+                                       Text="{Binding Title}"
+                                       Style="{StaticResource PhoneTextLargeStyle}"/>
+                                </Border>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                    </phone:LongListSelector>
                 </phone:PanoramaItem.Content>
             </phone:PanoramaItem>
-            <phone:PanoramaItem Header="个人中心">
+            <phone:PanoramaItem Header="我的主页">
                 <phone:PanoramaItem.Content>
-                    <TextBlock Text="Hello World"/>
+                    <TextBlock Text="个人主页"/>
                 </phone:PanoramaItem.Content>
             </phone:PanoramaItem>
         </phone:Panorama>

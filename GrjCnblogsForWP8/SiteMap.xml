@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Views>
+  <View>
+    <Title>首页</Title>
+    <Uri>/Views/HomeView.xaml</Uri>
+  </View>
+  <View>
+    <Title>新闻</Title>
+    <Uri>/Views/NewsView.xaml</Uri>
+  </View>
+  <View>
+    <Title>闪存</Title>
+    <Uri>/Views/IngView.xaml</Uri>
+  </View>
+  <View>
+    <Title>小组</Title>
+    <Uri>/Views/GroupView.xaml</Uri>
+  </View>
+  <View>
+    <Title>网摘</Title>
+    <Uri>/Views/WzView.xaml</Uri>
+  </View>
+  <View>
+    <Title>找找看</Title>
+    <Uri>/Views/ZzkView.xaml</Uri>
+  </View>
+</Views>
