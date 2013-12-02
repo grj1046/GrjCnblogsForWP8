@@ -7,9 +7,9 @@ using System.Resources;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("GrjCnblogsForWP8")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("博客园WP8客户端")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("grjsoft")]
 [assembly: AssemblyProduct("GrjCnblogsForWP8")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]

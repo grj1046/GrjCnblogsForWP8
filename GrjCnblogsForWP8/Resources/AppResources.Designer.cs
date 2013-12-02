@@ -79,7 +79,7 @@ namespace GrjCnblogsForWP8.Resources {
         }
         
         /// <summary>
-        ///   查找类似 博客园 的本地化字符串。
+        ///   查找类似 博客园 - 程序员的网上家园 的本地化字符串。
         /// </summary>
         public static string ApplicationTitle {
             get {

@@ -25,7 +25,7 @@ namespace GrjCnblogsForWP8
         {
             // 未捕获的异常的全局处理程序。
             UnhandledException += Application_UnhandledException;
-
+            
             // 标准 XAML 初始化
             InitializeComponent();
 
@@ -84,6 +84,17 @@ namespace GrjCnblogsForWP8
         // 导航失败时执行的代码
         private void RootFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
         {
+            string msg = "导航失败:" + e.Exception.Message;
+            if (e.Exception.InnerException != null)
+            {
+                msg += "\r\nInnerException:\r\n" + e.Exception.InnerException.Message;
+            }
+
+            Deployment.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                MessageBox.Show(msg);
+            }));
+            e.Handled = true;
             if (Debugger.IsAttached)
             {
                 // 导航已失败；强行进入调试器
@@ -94,6 +105,17 @@ namespace GrjCnblogsForWP8
         // 出现未处理的异常时执行的代码
         private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
         {
+            string msg = "Error:" + e.ExceptionObject.Message;
+            if (e.ExceptionObject.InnerException != null)
+            {
+                msg += "\r\nInnerException:\r\n" + e.ExceptionObject.InnerException.Message;
+            }
+
+            Deployment.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                MessageBox.Show(msg);
+            }));
+            e.Handled = true;
             if (Debugger.IsAttached)
             {
                 // 出现未处理的异常；强行进入调试器

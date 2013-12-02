@@ -126,7 +126,7 @@
     <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
   </data>
   <data name="ApplicationTitle" xml:space="preserve">
-    <value>博客园</value>
+    <value>博客园 - 程序员的网上家园</value>
   </data>
   <data name="AppBarButtonText" xml:space="preserve">
     <value>添加</value>

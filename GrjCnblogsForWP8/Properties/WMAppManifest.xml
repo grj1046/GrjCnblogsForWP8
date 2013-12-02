@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="zh-CN" />
-  <App xmlns="" ProductID="{de6f7f59-5bf3-400b-81c6-b65bdb5f13e7}" Title="博客园" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="GrjCnblogsForWP8 author" Description="博客园WP8客户端" Publisher="GrjCnblogsForWP8" PublisherID="{11e37d5d-54b6-47b7-8f41-c4fd03cfd8ac}">
+  <App xmlns="" ProductID="{de6f7f59-5bf3-400b-81c6-b65bdb5f13e7}" Title="博客园" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="郭仁军" Description="博客园WP8客户端" Publisher="grjsoft" PublisherID="{11e37d5d-54b6-47b7-8f41-c4fd03cfd8ac}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
@@ -19,24 +19,27 @@
           <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileSmall.png</SmallImageURI>
           <Count>0</Count>
           <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
-          <Title>GrjCnblogsForWP8</Title>
+          <Title>博客园</Title>
           <BackContent>
           </BackContent>
           <BackBackgroundImageURI>
           </BackBackgroundImageURI>
           <BackTitle>
           </BackTitle>
+          <LargeBackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileLarge.png</LargeBackgroundImageURI>
+          <LargeBackContent />
+          <LargeBackBackgroundImageURI IsRelative="true" IsResource="false">
+          </LargeBackBackgroundImageURI>
           <DeviceLockImageURI>
           </DeviceLockImageURI>
-          <HasLarge>
-          </HasLarge>
+          <HasLarge>True</HasLarge>
         </TemplateFlip>
       </PrimaryToken>
     </Tokens>
     <ScreenResolutions>
-      <ScreenResolution Name="ID_RESOLUTION_WVGA" />
       <ScreenResolution Name="ID_RESOLUTION_WXGA" />
       <ScreenResolution Name="ID_RESOLUTION_HD720P" />
+      <ScreenResolution Name="ID_RESOLUTION_WVGA" />
     </ScreenResolutions>
   </App>
 </Deployment>

@@ -24,4 +24,12 @@
     <Title>找找看</Title>
     <Uri>/Views/ZzkView.xaml</Uri>
   </View>
+  <View>
+    <Title>全站动态</Title>
+    <Uri>/Views/View.xaml</Uri>
+  </View>
+  <View>
+    <Title>圆友搜索</Title>
+    <Uri>/Views/View.xaml</Uri>
+  </View>
 </Views>

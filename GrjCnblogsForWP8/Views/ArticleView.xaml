@@ -1,0 +1,60 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="GrjCnblogsForWP8.Views.ArticleView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="False">
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator IsIndeterminate="True" IsVisible="False"/>
+    </shell:SystemTray.ProgressIndicator>
+
+    <!--LayoutRoot 是包含所有页面内容的根网格-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel 包含应用程序的名称和页标题-->
+        <TextBlock Margin="12,17,0,0" 
+                   Style="{StaticResource PhoneTextNormalStyle}"
+                   Text="{Binding LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}"/>
+
+        <!--ContentPanel - 在此处放置其他内容-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <phone:WebBrowser x:Name="webBrowser"
+                              Background="Transparent"
+                              ScriptNotify="webBrowser_ScriptNotify"
+                              IsScriptEnabled="True"/>
+        </Grid>
+    </Grid>
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar Opacity="0.5" IsMenuEnabled="True" IsVisible="True">
+            <shell:ApplicationBarIconButton x:Name="appBarRefersh" 
+                                            Text="刷新"
+                                            IconUri="/Assets/Img/Dark/refresh.png"
+                                            Click="appBarRefersh_Click"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarIconButton x:Name="appBarCopy" Text="将标题和URL复制至剪贴板"
+                                                Click="appBarCopy_Click"/>
+                <shell:ApplicationBarIconButton x:Name="appBarIng" Text="分享至闪存"
+                                                Click="appBarIng_Click"/>
+                <shell:ApplicationBarMenuItem x:Name="appBarSmsShare" Text="短信分享"
+                                              Click="appBarSmsShare_Click"/>
+                <shell:ApplicationBarMenuItem x:Name="appBarEmailShare" Text="邮件分享"
+                                              Click="appBarEmailShare_Click"/>
+                <shell:ApplicationBarMenuItem x:Name="appBarOpenInIE" Text="查看原文"
+                                              Click="appBarOpenInIE_Click"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+</phone:PhoneApplicationPage>

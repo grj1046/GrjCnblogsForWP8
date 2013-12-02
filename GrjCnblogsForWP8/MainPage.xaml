@@ -16,7 +16,7 @@
     shell:SystemTray.IsVisible="True"
     primitive:TiltEffect.IsTiltEnabled="True">
     <phone:PhoneApplicationPage.DataContext>
-        <vm:HomeViewModel/>
+        <vm:IndexViewModel/>
     </phone:PhoneApplicationPage.DataContext>
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
@@ -32,35 +32,34 @@
                         Grid.Row="1">
             <phone:PanoramaItem>
                 <phone:PanoramaItem.Header>
-                    <TextBlock Text="首页"/>
+                    <TextBlock Text="导航"/>
                 </phone:PanoramaItem.Header>
                 <phone:PanoramaItem.Content>
                     <phone:LongListSelector x:Name="llsNav" 
-                                            Margin="8,0,8,25"
+                                            Margin="8,0"
                                             LayoutMode="Grid"
-                                            GridCellSize="160,150"
+                                            GridCellSize="170,155"
                                             ItemsSource="{Binding Navigations}">
                         <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
                                 <Border Margin="5" Padding="5" 
-                                Background="Blue"
-                                BorderThickness="0"
-                                BorderBrush="{StaticResource PhoneForegroundBrush}"
-                                Tap="HomeNav_Tap">
-                                    <TextBlock TextWrapping="Wrap"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Bottom"
-                                       Text="{Binding Title}"
-                                       Style="{StaticResource PhoneTextLargeStyle}"/>
+                                        Background="Blue"
+                                        BorderThickness="0"
+                                        BorderBrush="{StaticResource PhoneForegroundBrush}"
+                                        Tap="HomeNav_Tap">
+                                    <TextBlock HorizontalAlignment="Left"
+                                               VerticalAlignment="Bottom"
+                                               Text="{Binding Title}"
+                                               Style="{StaticResource PhoneTextLargeStyle}"/>
                                 </Border>
                             </DataTemplate>
                         </phone:LongListSelector.ItemTemplate>
                     </phone:LongListSelector>
                 </phone:PanoramaItem.Content>
             </phone:PanoramaItem>
-            <phone:PanoramaItem Header="我的主页">
+            <phone:PanoramaItem Header="我的园子">
                 <phone:PanoramaItem.Content>
-                    <TextBlock Text="个人主页"/>
+                    <TextBlock Text="http://home.cnblogs.com/"/>
                 </phone:PanoramaItem.Content>
             </phone:PanoramaItem>
         </phone:Panorama>
