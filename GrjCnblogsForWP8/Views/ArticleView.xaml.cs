@@ -45,7 +45,7 @@ namespace GrjCnblogsForWP8.Views
                 GetArticle(this.ArticleUri);
             }
         }
-
+        
         private void webBrowser_ScriptNotify(object sender, NotifyEventArgs e)
         {
             //Type type = sender.GetType();

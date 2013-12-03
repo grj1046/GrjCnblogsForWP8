@@ -72,6 +72,7 @@ namespace GrjCnblogsForWP8.Views
             this.llsMyFollowingPage.Visibility = System.Windows.Visibility.Collapsed;
 
         }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -226,32 +227,27 @@ namespace GrjCnblogsForWP8.Views
             switch (this.pivotPanel.SelectedIndex)
             {
                 case 0:
-                    this.llsHomePage.ListHeader = null;
-                    HomeArticleList.Clear();
+                    //this.llsHomePage.ListHeader = null;
                     homeCurrentPage = 1;
                     GetArticleList(string.Format(Constants.HomeArticleUri, homeCurrentPage));
                     break;
                 case 1:
-                    this.llsPickPage.ListHeader = null;
-                    PickArticleList.Clear();
+                    //this.llsPickPage.ListHeader = null;
                     pickCurrentPage = 1;
                     GetArticleList(string.Format(Constants.PickArticleUri, pickCurrentPage));
                     break;
                 case 2:
-                    this.llsCandidatePage.ListHeader = null;
-                    CandidateArticleList.Clear();
+                    //this.llsCandidatePage.ListHeader = null;
                     candidateCurrentPage = 1;
                     GetArticleList(string.Format(Constants.CandidateArticleUri, candidateCurrentPage));
                     break;
                 case 3:
-                    this.llsNewsPage.ListHeader = null;
-                    NewsArticleList.Clear();
+                    //this.llsNewsPage.ListHeader = null;
                     newsCurrentPage = 1;
                     GetArticleList(string.Format(Constants.NewsArticleUri, newsCurrentPage));
                     break;
                 case 4:
-                    this.llsMyFollowingPage.ListHeader = null;
-                    MyFollowingArticleList.Clear();
+                    //this.llsMyFollowingPage.ListHeader = null;
                     myFollowingCurrentPage = 1;
                     GetArticleList(string.Format(Constants.MyFollowingArticleUri, myFollowingCurrentPage));
                     break;
@@ -333,6 +329,7 @@ namespace GrjCnblogsForWP8.Views
         //主页区文章
         private void GetHomePageArticle(IEnumerable<Article> articleList, HeaderContent headerContent)
         {
+            HomeArticleList.Clear();
             this.llsHomePage.ListHeader = headerContent;
             foreach (Article article in articleList)
             {
@@ -350,6 +347,7 @@ namespace GrjCnblogsForWP8.Views
         {
             //获取编辑推荐至推荐新闻
             this.llsPickPage.ListHeader = headerContent;
+            PickArticleList.Clear();
 
             foreach (Article article in articleList)
             {
@@ -367,6 +365,7 @@ namespace GrjCnblogsForWP8.Views
         {
             //获取编辑推荐至推荐新闻
             this.llsCandidatePage.ListHeader = headerContent;
+            CandidateArticleList.Clear();
 
             foreach (Article article in articleList)
             {
@@ -384,6 +383,7 @@ namespace GrjCnblogsForWP8.Views
         {
             //获取编辑推荐至推荐新闻
             this.llsNewsPage.ListHeader = headerContent;
+            NewsArticleList.Clear();
 
             foreach (Article article in articleList)
             {
@@ -401,6 +401,7 @@ namespace GrjCnblogsForWP8.Views
         {
             //获取编辑推荐至推荐新闻
             this.llsMyFollowingPage.ListHeader = headerContent;
+            MyFollowingArticleList.Clear();
 
             foreach (Article article in articleList)
             {

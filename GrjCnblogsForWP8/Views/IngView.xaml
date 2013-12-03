@@ -1,0 +1,719 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="GrjCnblogsForWP8.Views.IngView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator IsIndeterminate="True"/>
+    </shell:SystemTray.ProgressIndicator>
+    <!--LayoutRoot 是包含所有页面内容的根网格-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel 包含应用程序的名称和页标题-->
+        <TextBlock Margin="12,17,0,0" 
+                   Text="{Binding LocalizedResources.ApplicationTitleIng, Source={StaticResource LocalizedStrings}}" 
+                   Style="{StaticResource PhoneTextNormalStyle}"/>
+
+        <!--ContentPanel - 在此处放置其他内容-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <phone:Pivot x:Name="pivotPanel"
+                         SelectionChanged="pivotPanel_SelectionChanged">
+                <phone:Pivot.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}"
+                                   Margin="0"
+                                   Style="{StaticResource PhoneTextLargeStyle}"/>
+                    </DataTemplate>
+                </phone:Pivot.HeaderTemplate>
+                <phone:PivotItem Header="全部">
+                    <phone:LongListSelector x:Name="llsIngAll">
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <Border x:Name="content" 
+                                        Margin="5"
+                                        Padding="5"
+                                        Background="Blue"
+                                        Tap="content_Tap">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Width="52" 
+                                                Height="52"
+                                                Grid.RowSpan="2"
+                                                Margin="5,5,0,0"
+                                                VerticalAlignment="Top"
+                                                Source="{Binding BloggerAvatarImgUri}"/>
+                                        <TextBlock Grid.Column="1"
+                                                   Margin="5,0"
+                                                   TextWrapping="Wrap">
+                                            <Run Text="{Binding AuthorName}"
+                                                 FontWeight="Bold" 
+                                                 FontSize="{StaticResource PhoneFontSizeMedium}"
+                                                 FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                                            <Run Text=":"
+                                                 FontWeight="Bold" 
+                                                 FontSize="{StaticResource PhoneFontSizeMedium}"
+                                                 FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                                            <Run Text="{Binding IngBody}" 
+                                                 FontSize="{StaticResource PhoneFontSizeNormal}"
+                                                 FontFamily="{StaticResource PhoneFontFamilySemiLight}"/>
+                                            <Run Foreground="Yellow" Text="{Binding IsIngLucky}"/>
+                                            <Run Foreground="Green" Text="{Binding IsNewbie}"/>
+                                            <Underline Foreground="DodgerBlue">
+                                                <Run Text="{Binding PublishTime}" 
+                                                     FontStyle="Italic"
+                                                     FontSize="{StaticResource PhoneFontSizeSmall}"
+                                                     FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+                                                <Run Text="{Binding IngReplyCount}"
+                                                     FontStyle="Italic"
+                                                     FontSize="{StaticResource PhoneFontSizeSmall}"
+                                                     FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+                                            </Underline>
+                                        </TextBlock>
+                                        <ItemsControl Grid.Row="1" 
+                                                      Grid.Column="1"
+                                                      ItemsSource="{Binding IngReply}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border x:Name="item" 
+                                                            Background="Blue"
+                                                            BorderThickness="0,0,0,0.5" 
+                                                            BorderBrush="{StaticResource PhoneForegroundBrush}"
+                                                            Tap="item_Tap">
+                                                        <TextBlock TextWrapping="Wrap"
+                                                                   Style="{StaticResource PhoneTextSmallStyle}">
+                                                            <Run Text="{Binding CommentAuthorName}"
+                                                                    FontWeight="Bold"
+                                                                    FontSize="{StaticResource PhoneFontSizeNormal}"
+                                                                    FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                                                            <Run Text="{Binding ReplyBody}"
+                                                                 FontSize="{StaticResource PhoneFontSizeNormal}"
+                                                                 FontFamily="{StaticResource PhoneFontFamilySemiLight}"/>
+                                                            <Underline Foreground="DodgerBlue">
+                                                                <Run Text="{Binding ReplyTime}"
+                                                                     FontSize="{StaticResource PhoneFontSizeSmall}"
+                                                                     FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+                                                            </Underline>
+                                                        </TextBlock>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                        <phone:LongListSelector.ListFooterTemplate>
+                            <DataTemplate>
+                                <Border x:Name="nextPage" 
+                                        Margin="5,5,5,72"
+                                        Padding="5" 
+                                        Background="Blue"
+                                        Tap="nextPage_Tap">
+                                    <TextBlock HorizontalAlignment="Center" Text="下一页"/>
+                                </Border>
+                            </DataTemplate>
+                        </phone:LongListSelector.ListFooterTemplate>
+                    </phone:LongListSelector>
+                </phone:PivotItem>
+                <phone:PivotItem Header="回复我">
+                    <phone:LongListSelector x:Name="llsIngReplyToMe">
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <Border x:Name="content" 
+                                        Margin="5"
+                                        Padding="5"
+                                        Background="Blue"
+                                        Tap="content_Tap">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Width="52" 
+                                               Grid.RowSpan="2"
+                                               Height="52"
+                                               Margin="5,5,0,0"
+                                               VerticalAlignment="Top"
+                                               Source="{Binding BloggerAvatarImgUri}"/>
+                                        <TextBlock Grid.Column="1"
+                                                   Margin="5,0"
+                                                   TextWrapping="Wrap">
+                                            <Run Text="{Binding ReplyAuthorName}"
+                                                 FontWeight="Bold" 
+                                                 FontSize="{StaticResource PhoneFontSizeMedium}"
+                                                 FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                                            <Run Text="对评论&quot;"
+                                                 FontWeight="Bold" 
+                                                 FontSize="{StaticResource PhoneFontSizeNormal}"
+                                                 FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                                            <Run Text="{Binding CommentBody}" 
+                                                 FontSize="{StaticResource PhoneFontSizeNormal}"
+                                                 FontFamily="{StaticResource PhoneFontFamilySemiLight}"/>
+                                            <Run Text="&quot;的回复："
+                                                 FontWeight="Bold" 
+                                                 FontSize="{StaticResource PhoneFontSizeNormal}"
+                                                 FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                                        </TextBlock>
+                                        <Border x:Name="item" 
+                                                Grid.Row="1"
+                                                Grid.Column="1"
+                                                Background="Blue"
+                                                BorderThickness="0" 
+                                                BorderBrush="{StaticResource PhoneForegroundBrush}">
+                                            <TextBlock TextWrapping="Wrap"
+                                                        Style="{StaticResource PhoneTextSmallStyle}">
+                                                <Run Text="{Binding ReplyBody}"
+                                                        FontSize="{StaticResource PhoneFontSizeNormal}"
+                                                        FontFamily="{StaticResource PhoneFontFamilySemiLight}"/>
+                                                <Underline Foreground="DodgerBlue">
+                                                    <Run Text="{Binding ReplyTime}"
+                                                            FontSize="{StaticResource PhoneFontSizeSmall}"
+                                                            FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+                                                </Underline>
+                                            </TextBlock>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                        <phone:LongListSelector.ListFooterTemplate>
+                            <DataTemplate>
+                                <Border x:Name="nextPage" 
+                                        Margin="5,5,5,72"
+                                        Padding="5" 
+                                        Background="Blue"
+                                        Tap="nextPage_Tap">
+                                    <TextBlock HorizontalAlignment="Center" Text="下一页"/>
+                                </Border>
+                            </DataTemplate>
+                        </phone:LongListSelector.ListFooterTemplate>
+                    </phone:LongListSelector>
+                </phone:PivotItem>
+                <phone:PivotItem Header="提到我">
+                    <phone:LongListSelector x:Name="llsIngMentionedMe">
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <Border x:Name="content" 
+                                        Margin="5"
+                                        Padding="5"
+                                        Background="Blue"
+                                        Tap="content_Tap">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Width="52" 
+                                                   Height="52"
+                                                   Grid.RowSpan="2"
+                                                   Margin="5,5,0,0"
+                                                   VerticalAlignment="Top"
+                                                   Source="{Binding BloggerAvatarImgUri}"/>
+                                        <TextBlock Grid.Column="1"
+                                                   Margin="5,0"
+                                                   TextWrapping="Wrap">
+                                            <Run Text="{Binding AuthorName}"
+                                                 FontWeight="Bold" 
+                                                 FontSize="{StaticResource PhoneFontSizeMedium}"
+                                                 FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                                            <Run Text=":"
+                                                 FontWeight="Bold" 
+                                                 FontSize="{StaticResource PhoneFontSizeMedium}"
+                                                 FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                                            <Run Text="{Binding IngBody}" 
+                                                 FontSize="{StaticResource PhoneFontSizeNormal}"
+                                                 FontFamily="{StaticResource PhoneFontFamilySemiLight}"/>
+                                            <Run Foreground="Yellow" Text="{Binding IsIngLucky}"/>
+                                            <Run Foreground="Green" Text="{Binding IsNewbie}"/>
+                                            <Underline Foreground="DodgerBlue">
+                                                <Run Text="{Binding PublishTime}" 
+                                                     FontStyle="Italic"
+                                                     FontSize="{StaticResource PhoneFontSizeSmall}"
+                                                     FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+                                                <Run Text="{Binding IngReplyCount}"
+                                                     FontStyle="Italic"
+                                                     FontSize="{StaticResource PhoneFontSizeSmall}"
+                                                     FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+                                            </Underline>
+                                        </TextBlock>
+                                        <ItemsControl Grid.Row="1" 
+                                                      Grid.Column="1"
+                                                      ItemsSource="{Binding IngReply}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border x:Name="item" 
+                                                            Background="Blue"
+                                                            BorderThickness="0,0,0,0.5" 
+                                                            BorderBrush="{StaticResource PhoneForegroundBrush}"
+                                                            Tap="item_Tap">
+                                                        <TextBlock TextWrapping="Wrap"
+                                                                   Style="{StaticResource PhoneTextSmallStyle}">
+                                                            <Run Text="{Binding CommentAuthorName}"
+                                                                 FontWeight="Bold"
+                                                                 FontSize="{StaticResource PhoneFontSizeNormal}"
+                                                                 FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                                                            <Run Text="{Binding ReplyBody}"
+                                                                 FontSize="{StaticResource PhoneFontSizeNormal}"
+                                                                 FontFamily="{StaticResource PhoneFontFamilySemiLight}"/>
+                                                            <Underline Foreground="DodgerBlue">
+                                                                <Run Text="{Binding ReplyTime}"
+                                                                     FontSize="{StaticResource PhoneFontSizeSmall}"
+                                                                     FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+                                                            </Underline>
+                                                        </TextBlock>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                        <phone:LongListSelector.ListFooterTemplate>
+                            <DataTemplate>
+                                <Border x:Name="nextPage" 
+                                        Margin="5,5,5,72"
+                                        Padding="5" 
+                                        Background="Blue"
+                                        Tap="nextPage_Tap">
+                                    <TextBlock HorizontalAlignment="Center" Text="下一页"/>
+                                </Border>
+                            </DataTemplate>
+                        </phone:LongListSelector.ListFooterTemplate>
+                    </phone:LongListSelector>
+                </phone:PivotItem>
+                <phone:PivotItem Header="新回应">
+                    <phone:LongListSelector x:Name="llsIngNewReply">
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <Border x:Name="content" 
+                                        Margin="5"
+                                        Padding="5"
+                                        Background="Blue"
+                                        Tap="content_Tap">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Width="52" 
+                                                Height="52"
+                                                Grid.RowSpan="2"
+                                                Margin="5,5,0,0"
+                                                VerticalAlignment="Top"
+                                                Source="{Binding BloggerAvatarImgUri}"/>
+                                        <TextBlock Grid.Column="1"
+                                                   Margin="5,0"
+                                                   TextWrapping="Wrap">
+                                            <Run Text="{Binding AuthorName}"
+                                                 FontWeight="Bold" 
+                                                 FontSize="{StaticResource PhoneFontSizeMedium}"
+                                                 FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                                            <Run Text=":"
+                                                 FontWeight="Bold" 
+                                                 FontSize="{StaticResource PhoneFontSizeMedium}"
+                                                 FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                                            <Run Text="{Binding IngBody}" 
+                                                 FontSize="{StaticResource PhoneFontSizeNormal}"
+                                                 FontFamily="{StaticResource PhoneFontFamilySemiLight}"/>
+                                            <Run Foreground="Yellow" Text="{Binding IsIngLucky}"/>
+                                            <Run Foreground="Green" Text="{Binding IsNewbie}"/>
+                                            <Underline Foreground="DodgerBlue">
+                                                <Run Text="{Binding PublishTime}" 
+                                                     FontStyle="Italic"
+                                                     FontSize="{StaticResource PhoneFontSizeSmall}"
+                                                     FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+                                                <Run Text="{Binding IngReplyCount}"
+                                                     FontStyle="Italic"
+                                                     FontSize="{StaticResource PhoneFontSizeSmall}"
+                                                     FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+                                            </Underline>
+                                        </TextBlock>
+                                        <ItemsControl Grid.Row="1" 
+                                                      Grid.Column="1"
+                                                      ItemsSource="{Binding IngReply}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border x:Name="item" 
+                                                            Background="Blue"
+                                                            BorderThickness="0,0,0,0.5" 
+                                                            BorderBrush="{StaticResource PhoneForegroundBrush}"
+                                                            Tap="item_Tap">
+                                                        <TextBlock TextWrapping="Wrap"
+                                                                   Style="{StaticResource PhoneTextSmallStyle}">
+                                                            <Run Text="{Binding CommentAuthorName}"
+                                                                 FontWeight="Bold"
+                                                                 FontSize="{StaticResource PhoneFontSizeNormal}"
+                                                                 FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                                                            <Run Text="{Binding ReplyBody}"
+                                                                 FontSize="{StaticResource PhoneFontSizeNormal}"
+                                                                 FontFamily="{StaticResource PhoneFontFamilySemiLight}"/>
+                                                            <Underline Foreground="DodgerBlue">
+                                                                <Run Text="{Binding ReplyTime}"
+                                                                     FontSize="{StaticResource PhoneFontSizeSmall}"
+                                                                     FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+                                                            </Underline>
+                                                        </TextBlock>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                        <phone:LongListSelector.ListFooterTemplate>
+                            <DataTemplate>
+                                <Border x:Name="nextPage" 
+                                        Margin="5,5,5,72"
+                                        Padding="5" 
+                                        Background="Blue"
+                                        Tap="nextPage_Tap">
+                                    <TextBlock HorizontalAlignment="Center" Text="下一页"/>
+                                </Border>
+                            </DataTemplate>
+                        </phone:LongListSelector.ListFooterTemplate>
+                    </phone:LongListSelector>
+                </phone:PivotItem>
+                <phone:PivotItem Header="我回应">
+                    <phone:LongListSelector x:Name="llsIngMyReply">
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <Border x:Name="content" 
+                                        Margin="5"
+                                        Padding="5"
+                                        Background="Blue"
+                                        Tap="content_Tap">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Width="52" 
+                                                Height="52"
+                                                Grid.RowSpan="2"
+                                                Margin="5,5,0,0"
+                                                VerticalAlignment="Top"
+                                                Source="{Binding BloggerAvatarImgUri}"/>
+                                        <TextBlock Grid.Column="1"
+                                                   Margin="5,0"
+                                                   TextWrapping="Wrap">
+                                            <Run Text="{Binding AuthorName}"
+                                                 FontWeight="Bold" 
+                                                 FontSize="{StaticResource PhoneFontSizeMedium}"
+                                                 FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                                            <Run Text=":"
+                                                 FontWeight="Bold" 
+                                                 FontSize="{StaticResource PhoneFontSizeMedium}"
+                                                 FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                                            <Run Text="{Binding IngBody}" 
+                                                 FontSize="{StaticResource PhoneFontSizeNormal}"
+                                                 FontFamily="{StaticResource PhoneFontFamilySemiLight}"/>
+                                            <Run Foreground="Yellow" Text="{Binding IsIngLucky}"/>
+                                            <Run Foreground="Green" Text="{Binding IsNewbie}"/>
+                                            <Underline Foreground="DodgerBlue">
+                                                <Run Text="{Binding PublishTime}" 
+                                                     FontStyle="Italic"
+                                                     FontSize="{StaticResource PhoneFontSizeSmall}"
+                                                     FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+                                                <Run Text="{Binding IngReplyCount}"
+                                                     FontStyle="Italic"
+                                                     FontSize="{StaticResource PhoneFontSizeSmall}"
+                                                     FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+                                            </Underline>
+                                        </TextBlock>
+                                        <ItemsControl Grid.Row="1" 
+                                                      Grid.Column="1"
+                                                      ItemsSource="{Binding IngReply}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border x:Name="item" 
+                                                            Background="Blue"
+                                                            BorderThickness="0,0,0,0.5" 
+                                                            BorderBrush="{StaticResource PhoneForegroundBrush}"
+                                                            Tap="item_Tap">
+                                                        <TextBlock TextWrapping="Wrap"
+                                                                   Style="{StaticResource PhoneTextSmallStyle}">
+                                                            <Run Text="{Binding CommentAuthorName}"
+                                                                 FontWeight="Bold"
+                                                                 FontSize="{StaticResource PhoneFontSizeNormal}"
+                                                                 FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                                                            <Run Text="{Binding ReplyBody}"
+                                                                 FontSize="{StaticResource PhoneFontSizeNormal}"
+                                                                 FontFamily="{StaticResource PhoneFontFamilySemiLight}"/>
+                                                            <Underline Foreground="DodgerBlue">
+                                                                <Run Text="{Binding ReplyTime}"
+                                                                     FontSize="{StaticResource PhoneFontSizeSmall}"
+                                                                     FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+                                                            </Underline>
+                                                        </TextBlock>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                        <phone:LongListSelector.ListFooterTemplate>
+                            <DataTemplate>
+                                <Border x:Name="nextPage" 
+                                        Margin="5,5,5,72"
+                                        Padding="5" 
+                                        Background="Blue"
+                                        Tap="nextPage_Tap">
+                                    <TextBlock HorizontalAlignment="Center" Text="下一页"/>
+                                </Border>
+                            </DataTemplate>
+                        </phone:LongListSelector.ListFooterTemplate>
+                    </phone:LongListSelector>
+                </phone:PivotItem>
+                <phone:PivotItem Header="我的">
+                    <phone:LongListSelector x:Name="llsIngMy">
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <Border x:Name="content" 
+                                        Margin="5"
+                                        Padding="5"
+                                        Background="Blue"
+                                        Tap="content_Tap">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Width="52" 
+                                                Height="52"
+                                                Grid.RowSpan="2"
+                                                Margin="5,5,0,0"
+                                                VerticalAlignment="Top"
+                                                Source="{Binding BloggerAvatarImgUri}"/>
+                                        <TextBlock Grid.Column="1"
+                                                   Margin="5,0"
+                                                   TextWrapping="Wrap">
+                                            <Run Text="{Binding AuthorName}"
+                                                 FontWeight="Bold" 
+                                                 FontSize="{StaticResource PhoneFontSizeMedium}"
+                                                 FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                                            <Run Text=":"
+                                                 FontWeight="Bold" 
+                                                 FontSize="{StaticResource PhoneFontSizeMedium}"
+                                                 FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                                            <Run Text="{Binding IngBody}" 
+                                                 FontSize="{StaticResource PhoneFontSizeNormal}"
+                                                 FontFamily="{StaticResource PhoneFontFamilySemiLight}"/>
+                                            <Run Foreground="Yellow" Text="{Binding IsIngLucky}"/>
+                                            <Run Foreground="Green" Text="{Binding IsNewbie}"/>
+                                            <Run Foreground="LightGreen" Text="{Binding IsPrivate}"/>
+                                            <Underline Foreground="DodgerBlue">
+                                                <Run Text="{Binding PublishTime}" 
+                                                     FontStyle="Italic"
+                                                     FontSize="{StaticResource PhoneFontSizeSmall}"
+                                                     FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+                                                <Run Text="{Binding IngReplyCount}"
+                                                     FontStyle="Italic"
+                                                     FontSize="{StaticResource PhoneFontSizeSmall}"
+                                                     FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+                                            </Underline>
+                                        </TextBlock>
+                                        <ItemsControl Grid.Row="1" 
+                                                      Grid.Column="1"
+                                                      ItemsSource="{Binding IngReply}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border x:Name="item" 
+                                                            Background="Blue"
+                                                            BorderThickness="0,0,0,0.5" 
+                                                            BorderBrush="{StaticResource PhoneForegroundBrush}"
+                                                            Tap="item_Tap">
+                                                        <TextBlock TextWrapping="Wrap"
+                                                                   Style="{StaticResource PhoneTextSmallStyle}">
+                                                            <Run Text="{Binding CommentAuthorName}"
+                                                                 FontWeight="Bold"
+                                                                 FontSize="{StaticResource PhoneFontSizeNormal}"
+                                                                 FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                                                            <Run Text="{Binding ReplyBody}"
+                                                                 FontSize="{StaticResource PhoneFontSizeNormal}"
+                                                                 FontFamily="{StaticResource PhoneFontFamilySemiLight}"/>
+                                                            <Underline Foreground="DodgerBlue">
+                                                                <Run Text="{Binding ReplyTime}"
+                                                                     FontSize="{StaticResource PhoneFontSizeSmall}"
+                                                                     FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+                                                            </Underline>
+                                                        </TextBlock>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                        <phone:LongListSelector.ListFooterTemplate>
+                            <DataTemplate>
+                                <Border x:Name="nextPage" 
+                                        Margin="5,5,5,72"
+                                        Padding="5" 
+                                        Background="Blue"
+                                        Tap="nextPage_Tap">
+                                    <TextBlock HorizontalAlignment="Center" Text="下一页"/>
+                                </Border>
+                            </DataTemplate>
+                        </phone:LongListSelector.ListFooterTemplate>
+                    </phone:LongListSelector>
+                </phone:PivotItem>
+                <phone:PivotItem Header="关注">
+                    <phone:LongListSelector x:Name="llsIngRecent">
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <Border x:Name="content" 
+                                        Margin="5"
+                                        Padding="5"
+                                        Background="Blue"
+                                        Tap="content_Tap">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Width="52" 
+                                                Height="52"
+                                                Grid.RowSpan="2"
+                                                Margin="5,5,0,0"
+                                                VerticalAlignment="Top"
+                                                Source="{Binding BloggerAvatarImgUri}"/>
+                                        <TextBlock Grid.Column="1"
+                                                   Margin="5,0"
+                                                   TextWrapping="Wrap">
+                                            <Run Text="{Binding AuthorName}"
+                                                 FontWeight="Bold" 
+                                                 FontSize="{StaticResource PhoneFontSizeMedium}"
+                                                 FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                                            <Run Text=":"
+                                                 FontWeight="Bold" 
+                                                 FontSize="{StaticResource PhoneFontSizeMedium}"
+                                                 FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                                            <Run Text="{Binding IngBody}" 
+                                                 FontSize="{StaticResource PhoneFontSizeNormal}"
+                                                 FontFamily="{StaticResource PhoneFontFamilySemiLight}"/>
+                                            <Run Foreground="Yellow" Text="{Binding IsIngLucky}"/>
+                                            <Run Foreground="Green" Text="{Binding IsNewbie}"/>
+                                            <Underline Foreground="DodgerBlue">
+                                                <Run Text="{Binding PublishTime}" 
+                                                     FontStyle="Italic"
+                                                     FontSize="{StaticResource PhoneFontSizeSmall}"
+                                                     FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+                                                <Run Text="{Binding IngReplyCount}"
+                                                     FontStyle="Italic"
+                                                     FontSize="{StaticResource PhoneFontSizeSmall}"
+                                                     FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+                                            </Underline>
+                                        </TextBlock>
+                                        <ItemsControl Grid.Row="1" 
+                                                      Grid.Column="1"
+                                                      ItemsSource="{Binding IngReply}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border x:Name="item" 
+                                                            Background="Blue"
+                                                            BorderThickness="0,0,0,0.5" 
+                                                            BorderBrush="{StaticResource PhoneForegroundBrush}"
+                                                            Tap="item_Tap">
+                                                        <TextBlock TextWrapping="Wrap"
+                                                                   Style="{StaticResource PhoneTextSmallStyle}">
+                                                            <Run Text="{Binding CommentAuthorName}"
+                                                                 FontWeight="Bold"
+                                                                 FontSize="{StaticResource PhoneFontSizeNormal}"
+                                                                 FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                                                            <Run Text="{Binding ReplyBody}"
+                                                                 FontSize="{StaticResource PhoneFontSizeNormal}"
+                                                                 FontFamily="{StaticResource PhoneFontFamilySemiLight}"/>
+                                                            <Underline Foreground="DodgerBlue">
+                                                                <Run Text="{Binding ReplyTime}"
+                                                                     FontSize="{StaticResource PhoneFontSizeSmall}"
+                                                                     FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+                                                            </Underline>
+                                                        </TextBlock>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                        <phone:LongListSelector.ListFooterTemplate>
+                            <DataTemplate>
+                                <Border x:Name="nextPage" 
+                                        Margin="5,5,5,72"
+                                        Padding="5" 
+                                        Background="Blue"
+                                        Tap="nextPage_Tap">
+                                    <TextBlock HorizontalAlignment="Center" Text="下一页"/>
+                                </Border>
+                            </DataTemplate>
+                        </phone:LongListSelector.ListFooterTemplate>
+                    </phone:LongListSelector>
+                </phone:PivotItem>
+            </phone:Pivot>
+        </Grid>
+    </Grid>
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsMenuEnabled="True" IsVisible="True" Opacity="0.5">
+            <shell:ApplicationBarIconButton x:Name="appBarRefresh" Text="刷新" 
+                                            IconUri="/Assets/Img/Dark/refresh.png"
+                                            Click="appBarRefresh_Click"/>
+            <shell:ApplicationBarIconButton x:Name="appBarPublishIng" Text="发闪"
+                                            IconUri="/Assets/Img/Dark/edit.png"
+                                            Click="appBarPublishIng_Click"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem x:Name="appMenuLock" Text="锁定当前页" IsEnabled="True"
+                                              Click="appMenuLock_Click"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+</phone:PhoneApplicationPage>

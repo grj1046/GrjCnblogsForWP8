@@ -25,7 +25,7 @@ namespace GrjCnblogsForWP8
         {
             // 未捕获的异常的全局处理程序。
             UnhandledException += Application_UnhandledException;
-            
+
             // 标准 XAML 初始化
             InitializeComponent();
 

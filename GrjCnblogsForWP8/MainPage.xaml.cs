@@ -40,6 +40,12 @@ namespace GrjCnblogsForWP8
         //        this.ApplicationBar.IsVisible = false;
         //}
 
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {
+            //Windows.ApplicationModel.Core.CoreApplication.Exit();
+            base.OnBackKeyPress(e);
+        }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -91,7 +97,8 @@ namespace GrjCnblogsForWP8
         {
             FrameworkElement fe = sender as FrameworkElement;
             NavItem nav = fe.DataContext as NavItem;
-            //MessageBox.Show(nav.Title);
+            if (string.IsNullOrEmpty(nav.Uri))
+                return;
             this.NavigationService.Navigate(new Uri(nav.Uri, UriKind.Relative));
         }
 

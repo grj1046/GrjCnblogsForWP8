@@ -1,0 +1,91 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="GrjCnblogsForWP8.Views.PublishIng"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator IsIndeterminate="True"/>
+    </shell:SystemTray.ProgressIndicator>
+
+    <Grid x:Name="LayoutRoot" Background="Transparent" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock  Margin="12,17,0,28" 
+                    Style="{StaticResource PhoneTextNormalStyle}"
+                    Text="{Binding LocalizedResources.ApplicationTitleIng, Source={StaticResource LocalizedStrings}}"/>
+        <!--ContentPanel - 在此处放置其他内容-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0">
+            <!--http://home.cnblogs.com/ajax/ing/Publish-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"
+                               MinHeight="150"
+                               MaxHeight="300" />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="闪存内容:"
+                       Margin="12,0"/>
+            <TextBox x:Name="txtIngContent"
+                     Grid.Row="1"
+                     MinHeight="150"
+                     MaxHeight="300" 
+                     VerticalScrollBarVisibility="Visible"
+                     TextWrapping="Wrap"/>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <RadioButton Content="公开" 
+                             IsChecked="True"
+                             GroupName="publicFlag"
+                             Checked="RadioButton_Checked"/>
+                <RadioButton Content="私有"
+                             GroupName="publicFlag"
+                             Grid.Column="1"
+                             Checked="RadioButton_Checked"/>
+                <HyperlinkButton Content="加标签"
+                                 Grid.Column="2"/>
+            </Grid>
+            <TextBlock Grid.Row="3" 
+                       Margin="12,0"
+                       Style="{StaticResource PhoneTextSmallStyle}">
+                <TextBlock.Inlines>
+                    <Run FontWeight="Bold" Text="相关说明："/>
+                    <LineBreak/>
+                    <Run Text="@用户名 ：给指定用户发闪存，例：@dudu："/>
+                    <LineBreak/>
+                    <Run Text="手机网页版地址：m.cnblogs.com"/>
+                    <LineBreak/>
+                    <Run Text="给闪存加标签：[Tag1][Tag2]闪存内容"/>
+                </TextBlock.Inlines>
+            </TextBlock>
+        </Grid>
+    </Grid>
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsMenuEnabled="True" IsVisible="True" Opacity="0.5">
+            <shell:ApplicationBarIconButton x:Name="appBarCancel" Text="取消"
+                                            IconUri="/Assets/Img/Dark/cancel.png"
+                                            Click="appBarCancel_Click"/>
+            <shell:ApplicationBarIconButton x:Name="appBarPublish" Text="发布"
+                                            IconUri="/Assets/Img/Dark/check.png"
+                                            Click="appBarPublish_Click"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+</phone:PhoneApplicationPage>

@@ -25,6 +25,10 @@
     <Uri>/Views/ZzkView.xaml</Uri>
   </View>
   <View>
+    <Title>短消息</Title>
+    <Uri>/Views/View.xaml</Uri>
+  </View>
+  <View>
     <Title>全站动态</Title>
     <Uri>/Views/View.xaml</Uri>
   </View>

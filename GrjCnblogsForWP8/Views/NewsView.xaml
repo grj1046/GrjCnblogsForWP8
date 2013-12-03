@@ -1,0 +1,338 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="GrjCnblogsForWP8.Views.NewsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator IsIndeterminate="True"/>
+    </shell:SystemTray.ProgressIndicator>
+
+    <!--LayoutRoot 是包含所有页面内容的根网格-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Margin="12,17,0,0"
+                       Style="{StaticResource PhoneTextNormalStyle}"
+                       Text="{Binding LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}" />
+        <!--ContentPanel - 在此处放置其他内容-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <phone:Pivot x:Name="pivotPanel"
+                         Margin="0,0,0,50"
+                         SelectionChanged="pivotPanel_SelectionChanged">
+                <phone:Pivot.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}"
+                                   Margin="0"
+                                   Style="{StaticResource PhoneTextLargeStyle}"/>
+                    </DataTemplate>
+                </phone:Pivot.HeaderTemplate>
+                <phone:PivotItem Header="最新新闻">
+                    <phone:LongListSelector x:Name="llsNewsLatest">
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <Border x:Name="Content" 
+                                        Margin="5"
+                                        Padding="5"
+                                        Background="Blue"
+                                        BorderThickness="0"
+                                        BorderBrush="{StaticResource PhoneForegroundBrush}"
+                                        Tap="Content_Tap">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.ColumnSpan="2"
+                                                   Text="{Binding Title}"
+                                                   FontWeight="Bold"
+                                                   TextWrapping="Wrap"/>
+                                        <Grid Grid.Row="1"
+                                              Margin="0,10,0,0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Image Width="52" Height="52"
+                                                   Source="{Binding TopicImg}"/>
+                                            <TextBlock x:Name="txtDigg" 
+                                                       Grid.Row="1"
+                                                       VerticalAlignment="Bottom"
+                                                       HorizontalAlignment="Center"
+                                                       Text="{Binding Digg}"
+                                                       Style="{StaticResource PhoneTextSmallStyle}"/>
+                                            <TextBlock Text="推荐" 
+                                                       Grid.Row="2"
+                                                       VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Style="{StaticResource PhoneTextSmallStyle}"/>
+                                        </Grid>
+                                        <TextBlock Grid.Row="1"
+                                                   Grid.Column="1"
+                                                   Margin="5"
+                                                   Text="{Binding Summary}"
+                                                   TextWrapping="Wrap"
+                                                   VerticalAlignment="Stretch"
+                                                   Style="{StaticResource PhoneTextSmallStyle}"/>
+                                        <TextBlock Grid.Row="2"
+                                                   Grid.ColumnSpan="2"
+                                                   TextWrapping="Wrap"
+                                                   Margin="5"
+                                                   Style="{StaticResource PhoneTextSmallStyle}">
+                                            <Run Text="{Binding Deliver}"/>
+                                            <Run Text="{Binding CommentNum}"/>
+                                            <Run Text="{Binding Views}"/>
+                                            <Run Text="{Binding newsTagTitle}"/>
+                                            <Run Text="{Binding PublishTime}"/>
+                                        </TextBlock>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                        <phone:LongListSelector.ListFooterTemplate>
+                            <DataTemplate>
+                                <Border x:Name="NextPage" 
+                                        Margin="5,5,5,30"
+                                        Padding="5"
+                                        Background="Blue"
+                                        BorderThickness="0"
+                                        BorderBrush="{StaticResource PhoneForegroundBrush}"
+                                        Tap="NextPage_Tap">
+                                    <TextBlock Text="下一页"
+                                               HorizontalAlignment="Center"/>
+                                </Border>
+                            </DataTemplate>
+                        </phone:LongListSelector.ListFooterTemplate>
+                    </phone:LongListSelector>
+                </phone:PivotItem>
+                <phone:PivotItem Header="推荐新闻">
+                    <phone:LongListSelector x:Name="llsNewsRecommend">
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <Border x:Name="Content" 
+                                        Margin="5"
+                                        Padding="5"
+                                        Background="Blue"
+                                        BorderThickness="0"
+                                        BorderBrush="{StaticResource PhoneForegroundBrush}"
+                                        Tap="Content_Tap">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.ColumnSpan="2"
+                                                   Text="{Binding Title}"
+                                                   FontWeight="Bold"
+                                                   TextWrapping="Wrap"/>
+                                        <Grid Grid.Row="1"
+                                              Margin="0,10,0,0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Image Width="52" Height="52"
+                                                   Source="{Binding TopicImg}"/>
+                                            <TextBlock x:Name="txtDigg" 
+                                                       Grid.Row="1"
+                                                       VerticalAlignment="Bottom"
+                                                       HorizontalAlignment="Center"
+                                                       Text="{Binding Digg}"
+                                                       Style="{StaticResource PhoneTextSmallStyle}"/>
+                                            <TextBlock Text="推荐" 
+                                                       Grid.Row="2"
+                                                       VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Style="{StaticResource PhoneTextSmallStyle}"/>
+                                        </Grid>
+                                        <TextBlock Grid.Row="1"
+                                                   Grid.Column="1"
+                                                   Margin="5"
+                                                   Text="{Binding Summary}"
+                                                   TextWrapping="Wrap"
+                                                   VerticalAlignment="Stretch"
+                                                   Style="{StaticResource PhoneTextSmallStyle}"/>
+                                        <TextBlock Grid.Row="2"
+                                                   Grid.ColumnSpan="2"
+                                                   TextWrapping="Wrap"
+                                                   Margin="5"
+                                                   Style="{StaticResource PhoneTextSmallStyle}">
+                                            <Run Text="{Binding Deliver}"/>
+                                            <Run Text="{Binding CommentNum}"/>
+                                            <Run Text="{Binding Views}"/>
+                                            <Run Text="{Binding newsTagTitle}"/>
+                                            <Run Text="{Binding PublishTime}"/>
+                                        </TextBlock>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                        <phone:LongListSelector.ListFooterTemplate>
+                            <DataTemplate>
+                                <Border x:Name="NextPage" 
+                                        Margin="5,5,5,30"
+                                        Padding="5"
+                                        Background="Blue"
+                                        BorderThickness="0"
+                                        BorderBrush="{StaticResource PhoneForegroundBrush}"
+                                        Tap="NextPage_Tap">
+                                    <TextBlock Text="下一页"
+                                               HorizontalAlignment="Center"/>
+                                </Border>
+                            </DataTemplate>
+                        </phone:LongListSelector.ListFooterTemplate>
+                    </phone:LongListSelector>
+                </phone:PivotItem>
+                <phone:PivotItem Header="热门新闻">
+                    <phone:LongListSelector x:Name="llsNewsHot">
+                        <phone:LongListSelector.ListHeaderTemplate>
+                            <DataTemplate>
+                                <toolkit:ListPicker x:Name="lpStartDate"
+                                                    SelectedIndex="2"
+                                                    toolkit:TiltEffect.SuppressTilt="True"
+                                                    SelectionChanged="lpStartDate_SelectionChanged">
+                                    <sys:String>今日</sys:String>
+                                    <sys:String>昨日</sys:String>
+                                    <sys:String>本周</sys:String>
+                                    <sys:String>本月</sys:String>
+                                </toolkit:ListPicker>
+                            </DataTemplate>
+                        </phone:LongListSelector.ListHeaderTemplate>
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <Border x:Name="Content" 
+                                        Margin="5"
+                                        Padding="5"
+                                        Background="Blue"
+                                        BorderThickness="0"
+                                        BorderBrush="{StaticResource PhoneForegroundBrush}"
+                                        Tap="Content_Tap">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.ColumnSpan="2"
+                                                   Text="{Binding Title}"
+                                                   FontWeight="Bold"
+                                                   TextWrapping="Wrap"/>
+                                        <Grid Grid.Row="1"
+                                              Margin="0,10,0,0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Image Width="52" Height="52"
+                                                   Source="{Binding TopicImg}"/>
+                                            <TextBlock x:Name="txtDigg" 
+                                                       Grid.Row="1"
+                                                       VerticalAlignment="Bottom"
+                                                       HorizontalAlignment="Center"
+                                                       Text="{Binding Digg}"
+                                                       Style="{StaticResource PhoneTextSmallStyle}"/>
+                                            <TextBlock Text="推荐" 
+                                                       Grid.Row="2"
+                                                       VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Style="{StaticResource PhoneTextSmallStyle}"/>
+                                        </Grid>
+                                        <TextBlock Grid.Row="1"
+                                                   Grid.Column="1"
+                                                   Margin="5"
+                                                   Text="{Binding Summary}"
+                                                   TextWrapping="Wrap"
+                                                   VerticalAlignment="Stretch"
+                                                   Style="{StaticResource PhoneTextSmallStyle}"/>
+                                        <TextBlock Grid.Row="2"
+                                                   Grid.ColumnSpan="2"
+                                                   TextWrapping="Wrap"
+                                                   Margin="5"
+                                                   Style="{StaticResource PhoneTextSmallStyle}">
+                                            <Run Text="{Binding Deliver}"/>
+                                            <Run Text="{Binding CommentNum}"/>
+                                            <Run Text="{Binding Views}"/>
+                                            <Run Text="{Binding newsTagTitle}"/>
+                                            <Run Text="{Binding PublishTime}"/>
+                                        </TextBlock>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                        <phone:LongListSelector.ListFooterTemplate>
+                            <DataTemplate>
+                                <Border x:Name="NextPage" 
+                                        Margin="5,5,5,30"
+                                        Padding="5"
+                                        Background="Blue"
+                                        BorderThickness="0"
+                                        BorderBrush="{StaticResource PhoneForegroundBrush}"
+                                        Tap="NextPage_Tap">
+                                    <TextBlock Text="下一页"
+                                               HorizontalAlignment="Center"/>
+                                </Border>
+                            </DataTemplate>
+                        </phone:LongListSelector.ListFooterTemplate>
+                    </phone:LongListSelector>
+                </phone:PivotItem>
+                <!--<phone:PivotItem Header="最新评论">
+                    <TextBlock Text="http://news.cnblogs.com/news/comment.aspx?page={0}"
+                               TextWrapping="Wrap"/>
+                </phone:PivotItem>
+                <phone:PivotItem Header="热门评论">
+                    <TextBlock Text="http://news.cnblogs.com/news/comment.aspx?type=hot And page={0}"
+                               TextWrapping="Wrap"/>
+                </phone:PivotItem>
+                <phone:PivotItem Header="我评论的">
+                    <StackPanel>
+                        <TextBlock Text="我评论的"/>
+                        <TextBlock Text="http://home.cnblogs.com/news/mycommented/page/{0}/"
+                                   TextWrapping="Wrap"/>
+                        <TextBlock Text="我的评论"/>
+                        <TextBlock Text="http://news.cnblogs.com/news/comment.aspx?type=mycomments And page={0}"
+                               TextWrapping="Wrap"/>
+                    </StackPanel>
+                </phone:PivotItem>
+                <phone:PivotItem Header="我推荐的">
+                    <TextBlock Text="http://home.cnblogs.com/news/mydigged/page/{0}/"/>
+                </phone:PivotItem>-->
+            </phone:Pivot>
+        </Grid>
+    </Grid>
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsMenuEnabled="True" IsVisible="True" Opacity="0.5">
+            <shell:ApplicationBarIconButton x:Name="appBarRefresh" Text="刷新" 
+                                            IconUri="/Assets/Img/Dark/refresh.png"
+                                            Click="appBarRefresh_Click"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+</phone:PhoneApplicationPage>

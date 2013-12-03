@@ -1,0 +1,177 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="GrjCnblogsForWP8.Views.IngDetailView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator IsIndeterminate="True"/>
+    </shell:SystemTray.ProgressIndicator>
+
+    <!--LayoutRoot 是包含所有页面内容的根网格-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel 包含应用程序的名称和页标题-->
+        <TextBlock Margin="12,17,0,28" 
+                   Text="{Binding LocalizedResources.ApplicationTitleIng, Source={StaticResource LocalizedStrings}}" 
+                   Style="{StaticResource PhoneTextNormalStyle}"/>
+        <!--ContentPanel - 在此处放置其他内容-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Margin="5" 
+                       Style="{StaticResource PhoneTextLargeStyle}">
+                <TextBlock.Inlines>
+                    <Run Text="{Binding AuthorName}"/>
+                    <Run Text="的闪存："/>
+                </TextBlock.Inlines>
+            </TextBlock>
+            <ScrollViewer Grid.Row="1" 
+                          VerticalScrollBarVisibility="Auto">
+                <Grid Margin="0,0,0,70">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Width="50" 
+                           Height="50"
+                           Margin="5"
+                           Grid.RowSpan="2"
+                           VerticalAlignment="Top"
+                           Source="{Binding AuthorAvatarImgUri}"/>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Margin="0,5,5,5"
+                                   TextWrapping="Wrap">
+                            <TextBlock.Inlines>
+                                <Run Text="{Binding AuthorName}"
+                                     FontWeight="Bold" 
+                                     FontSize="{StaticResource PhoneFontSizeMedium}"
+                                     FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                                <Run Text="："
+                                     FontWeight="Bold" 
+                                     FontSize="{StaticResource PhoneFontSizeMedium}"
+                                     FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                                <LineBreak/>
+                                <Run Text="{Binding PublishTime}" 
+                                     Foreground="Gray"
+                                     FontSize="{StaticResource PhoneFontSizeSmall}"
+                                     FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+                            </TextBlock.Inlines>
+                        </TextBlock>
+                        <TextBlock x:Name="content" 
+                                   Grid.Row="1"
+                                   Margin="0,5,5,5"
+                                   TextWrapping="Wrap"
+                                   Tap="content_Tap"
+                                   Style="{StaticResource PhoneTextLargeStyle}">
+                            <TextBlock.Inlines>
+                                <Run Foreground="Yellow" Text="{Binding IsLucky}"/>
+                                <Run Foreground="Green" Text="{Binding IsNewbie}"/>
+                                <Run Text="{Binding IngContent}"/>
+                                <LineBreak/>
+                                <Run Text="{Binding IngCommentCount}" 
+                                     Foreground="Gray" 
+                                     FontSize="{StaticResource PhoneFontSizeSmall}"/>
+                            </TextBlock.Inlines>
+                        </TextBlock>
+                        <ItemsControl Grid.Row="2"
+                                      Margin="0,5,5,5"
+                                      ItemsSource="{Binding IngReplyDetail}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border x:Name="item" 
+                                            BorderThickness="0,0,0,0.5"
+                                            Tap="item_Tap"
+                                            BorderBrush="{StaticResource PhoneForegroundBrush}">
+                                        <Grid Margin="0,5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Width="28" Height="28"
+                                                   Margin="0,5"
+                                                   VerticalAlignment="Top"
+                                                   Source="{Binding AuthorAvatarImgUri}"/>
+                                            <TextBlock Grid.Column="1"
+                                                       TextWrapping="Wrap"
+                                                       Style="{StaticResource PhoneTextSmallStyle}">
+                                                <TextBlock.Inlines>
+                                                    <Run FontWeight="Bold" 
+                                                         Text="{Binding AuthorName}"/>
+                                                    <Run Text="{Binding ReplyContent}"/>
+                                                    <Run Foreground="Gray" 
+                                                         Text="{Binding ReplyTime}"/>
+                                                </TextBlock.Inlines>
+                                            </TextBlock>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                    <Border x:Name="borderReplyForm" 
+                            Visibility="Collapsed"
+                            Grid.Row="1"
+                            Grid.ColumnSpan="2">
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock x:Name="txtReplyTo"
+                                       Margin="5,0"
+                                       TextWrapping="Wrap">
+                                <TextBlock.Inlines>
+                                    <Run Text="回复给："/>
+                                    <Run x:Name="runReplyTo"/>
+                                    <Run x:Name="runReplyContent"/>
+                                </TextBlock.Inlines>
+                            </TextBlock>
+                            <TextBox x:Name="txtReplyContent"
+                                     Grid.Row="1"
+                                     TextWrapping="Wrap" 
+                                     MaxLength="300"
+                                     MinHeight="150"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsMenuEnabled="True" IsVisible="True" Opacity="0.5">
+            <!--<shell:ApplicationBarIconButton x:Name="appBarRefresh" Text="刷新"
+                                            IconUri="/Assets/Img/Dark/refresh.png"
+                                            Click="appBarRefresh_Click"/>-->
+            <shell:ApplicationBarIconButton x:Name="appBarCancel" Text="取消"
+                                            IconUri="/Assets/Img/Dark/cancel.png"
+                                            Click="appBarCancel_Click"/>
+            <shell:ApplicationBarIconButton x:Name="appBarSubmitReply" Text="提交回复"
+                                            IconUri="/Assets/Img/Dark/check.png"
+                                            Click="appBarSubmitReply_Click"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+</phone:PhoneApplicationPage>
