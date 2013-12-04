@@ -88,6 +88,15 @@ namespace GrjCnblogsForWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 闪存 - 博客园 - 将一闪而过的念头存下来 的本地化字符串。
+        /// </summary>
+        public static string ApplicationTitleIng {
+            get {
+                return ResourceManager.GetString("ApplicationTitleIng", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 LeftToRight 的本地化字符串。
         /// </summary>
         public static string ResourceFlowDirection {

@@ -142,7 +142,8 @@
                                 <RowDefinition />
                             </Grid.RowDefinitions>
                             <TextBlock x:Name="txtReplyTo"
-                                       Margin="5,0"
+                                       Margin="5,0" 
+                                       TextTrimming="WordEllipsis"
                                        TextWrapping="Wrap">
                                 <TextBlock.Inlines>
                                     <Run Text="回复给："/>

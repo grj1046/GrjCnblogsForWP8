@@ -43,6 +43,8 @@
                      Grid.Row="1"
                      MinHeight="150"
                      MaxHeight="300" 
+                     Background="Gray"
+                     BorderThickness="0"
                      VerticalScrollBarVisibility="Visible"
                      TextWrapping="Wrap"/>
             <Grid Grid.Row="2">
@@ -51,7 +53,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <RadioButton Content="公开" 
+                <RadioButton Content="公开" x:Name="rdbPublic"
                              IsChecked="True"
                              GroupName="publicFlag"
                              Checked="RadioButton_Checked"/>

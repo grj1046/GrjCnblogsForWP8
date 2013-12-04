@@ -329,88 +329,88 @@ namespace GrjCnblogsForWP8.Views
         //主页区文章
         private void GetHomePageArticle(IEnumerable<Article> articleList, HeaderContent headerContent)
         {
-            HomeArticleList.Clear();
+            if (!homePageInitialized)
+            {
+                HomeArticleList.Clear();
+                homePageInitialized = true;
+                this.llsHomePage.Visibility = System.Windows.Visibility.Visible;
+            }
             this.llsHomePage.ListHeader = headerContent;
             foreach (Article article in articleList)
             {
                 HomeArticleList.Add(article);
-            }
-            if (!homePageInitialized)
-            {
-                homePageInitialized = true;
-                this.llsHomePage.Visibility = System.Windows.Visibility.Visible;
             }
             IsLoading = false;
         }
         //精华区文章
         private void GetPickPageArticle(IEnumerable<Article> articleList, HeaderContent headerContent)
         {
+            if (!pickPageInitialized)
+            {
+                PickArticleList.Clear();
+                pickPageInitialized = true;
+                this.llsPickPage.Visibility = System.Windows.Visibility.Visible;
+            }
             //获取编辑推荐至推荐新闻
             this.llsPickPage.ListHeader = headerContent;
-            PickArticleList.Clear();
 
             foreach (Article article in articleList)
             {
                 PickArticleList.Add(article);
-            }
-            if (!pickPageInitialized)
-            {
-                pickPageInitialized = true;
-                this.llsPickPage.Visibility = System.Windows.Visibility.Visible;
             }
             IsLoading = false;
         }
         //候选区文章
         private void GetCandidatePageArticle(IEnumerable<Article> articleList, HeaderContent headerContent)
         {
+            if (!candidatePageInitialized)
+            {
+                CandidateArticleList.Clear();
+                candidatePageInitialized = true;
+                this.llsCandidatePage.Visibility = System.Windows.Visibility.Visible;
+            }
             //获取编辑推荐至推荐新闻
             this.llsCandidatePage.ListHeader = headerContent;
-            CandidateArticleList.Clear();
 
             foreach (Article article in articleList)
             {
                 CandidateArticleList.Add(article);
-            }
-            if (!candidatePageInitialized)
-            {
-                candidatePageInitialized = true;
-                this.llsCandidatePage.Visibility = System.Windows.Visibility.Visible;
             }
             IsLoading = false;
         }
         //新闻区文章
         private void GetNewsPageArticle(IEnumerable<Article> articleList, HeaderContent headerContent)
         {
+            if (!newsPageInitialized)
+            {
+                NewsArticleList.Clear();
+                newsPageInitialized = true;
+                this.llsNewsPage.Visibility = System.Windows.Visibility.Visible;
+            }
             //获取编辑推荐至推荐新闻
             this.llsNewsPage.ListHeader = headerContent;
-            NewsArticleList.Clear();
 
             foreach (Article article in articleList)
             {
                 NewsArticleList.Add(article);
-            }
-            if (!newsPageInitialized)
-            {
-                newsPageInitialized = true;
-                this.llsNewsPage.Visibility = System.Windows.Visibility.Visible;
             }
             IsLoading = false;
         }
         //我关注的
         private void GetMyFollowingArticle(IEnumerable<Article> articleList, HeaderContent headerContent)
         {
+            if (!myFollowingPageInitialized)
+            {
+                MyFollowingArticleList.Clear();
+                myFollowingPageInitialized = true;
+                this.llsMyFollowingPage.Visibility = System.Windows.Visibility.Visible;
+            }
             //获取编辑推荐至推荐新闻
             this.llsMyFollowingPage.ListHeader = headerContent;
-            MyFollowingArticleList.Clear();
 
             foreach (Article article in articleList)
             {
                 MyFollowingArticleList.Add(article);
-            }
-            if (!myFollowingPageInitialized)
-            {
-                myFollowingPageInitialized = true;
-                this.llsMyFollowingPage.Visibility = System.Windows.Visibility.Visible;
             }
             IsLoading = false;
         }

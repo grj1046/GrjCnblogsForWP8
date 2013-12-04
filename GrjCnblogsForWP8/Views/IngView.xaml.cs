@@ -323,7 +323,8 @@ namespace GrjCnblogsForWP8.Views
             IngReply ingReply = border.DataContext as IngReply;
             if (ingReply == null)
                 return;
-            MessageBox.Show(ingReply.Id);
+            this.NavigationService.Navigate(new Uri("/Views/ReplyIngView.xaml", UriKind.Relative));
+            //MessageBox.Show(ingReply.Id);
             e.Handled = true;
         }
 
@@ -409,105 +410,105 @@ namespace GrjCnblogsForWP8.Views
 
         private void GetIngAll(IEnumerable<Ing> ingList)
         {
-            IngAllList.Clear();
+            if (!IngAllInitialized)
+            {
+                IngAllList.Clear();
+                this.llsIngAll.Visibility = System.Windows.Visibility.Visible;
+                IngAllInitialized = true;
+            }
             foreach (var item in ingList)
             {
                 IngAllList.Add(item);
-            }
-            if (!IngAllInitialized)
-            {
-                this.llsIngAll.Visibility = System.Windows.Visibility.Visible;
-                IngAllInitialized = true;
             }
             IsLoading = false;
         }
 
         private void GetIngReplyToMe(IEnumerable<IngReplyToMe> ingList)
         {
-            IngReplyToMeList.Clear();
+            if (!IngReplyToMeInitialized)
+            {
+                IngReplyToMeList.Clear();
+                this.llsIngReplyToMe.Visibility = System.Windows.Visibility.Visible;
+                IngReplyToMeInitialized = true;
+            }
             foreach (var ingReplyToMe in ingList)
             {
                 IngReplyToMeList.Add(ingReplyToMe);
-            }
-            if (!IngReplyToMeInitialized)
-            {
-                this.llsIngReplyToMe.Visibility = System.Windows.Visibility.Visible;
-                IngReplyToMeInitialized = true;
             }
             IsLoading = false;
         }
 
         private void GetIngMentionedMe(IEnumerable<Ing> ingList)
         {
-            IngMentionedMeList.Clear();
+            if (!IngMentionedMeInitialized)
+            {
+                IngMentionedMeList.Clear();
+                this.llsIngMentionedMe.Visibility = System.Windows.Visibility.Visible;
+                IngMentionedMeInitialized = true;
+            }
             foreach (var item in ingList)
             {
                 IngMentionedMeList.Add(item);
-            }
-            if (!IngMentionedMeInitialized)
-            {
-                this.llsIngMentionedMe.Visibility = System.Windows.Visibility.Visible;
-                IngMentionedMeInitialized = true;
             }
             IsLoading = false;
         }
 
         private void GetIngNewReply(IEnumerable<Ing> ingList)
         {
-            IngNewReplyList.Clear();
+            if (!IngNewReplyInitialized)
+            {
+                IngNewReplyList.Clear();
+                this.llsIngNewReply.Visibility = System.Windows.Visibility.Visible;
+                IngNewReplyInitialized = true;
+            }
             foreach (var item in ingList)
             {
                 IngNewReplyList.Add(item);
-            }
-            if (!IngNewReplyInitialized)
-            {
-                this.llsIngNewReply.Visibility = System.Windows.Visibility.Visible;
-                IngNewReplyInitialized = true;
             }
             IsLoading = false;
         }
 
         private void GetIngMyReply(IEnumerable<Ing> ingList)
         {
-            IngMyReplyList.Clear();
+            if (!IngMyReplyInitialized)
+            {
+                IngMyReplyList.Clear();
+                this.llsIngMyReply.Visibility = System.Windows.Visibility.Visible;
+                IngMyReplyInitialized = true;
+            }
             foreach (var item in ingList)
             {
                 IngMyReplyList.Add(item);
-            }
-            if (!IngMyReplyInitialized)
-            {
-                this.llsIngMyReply.Visibility = System.Windows.Visibility.Visible;
-                IngMyReplyInitialized = true;
             }
             IsLoading = false;
         }
 
         private void GetIngMy(IEnumerable<Ing> ingList)
         {
-            IngMyList.Clear();
+            if (!IngMyInitialized)
+            {
+                IngMyList.Clear();
+                this.llsIngMy.Visibility = System.Windows.Visibility.Visible;
+                IngMyInitialized = true;
+            }
             foreach (var item in ingList)
             {
                 IngMyList.Add(item);
-            }
-            if (!IngMyInitialized)
-            {
-                this.llsIngMy.Visibility = System.Windows.Visibility.Visible;
-                IngMyInitialized = true;
             }
             IsLoading = false;
         }
 
         private void GetIngRecent(IEnumerable<Ing> ingList)
         {
-            IngRecentList.Clear();
+            if (!IngRecentInitialized)
+            {
+                IngRecentList.Clear();
+                this.llsIngRecent.Visibility = System.Windows.Visibility.Visible;
+                IngRecentInitialized = true;
+            }
             foreach (var item in ingList)
             {
                 IngRecentList.Add(item);
-            }
-            if (!IngRecentInitialized)
-            {
-                this.llsIngRecent.Visibility = System.Windows.Visibility.Visible;
-                IngRecentInitialized = true;
             }
             IsLoading = false;
         }

@@ -37,7 +37,7 @@ namespace GrjCnblogsForWP8.Views
                 var dialogResult = MessageBox.Show("您尚未登录，请先登录。", "提示", MessageBoxButton.OKCancel);
                 if (dialogResult == MessageBoxResult.OK)
                 {
-                    this.NavigationService.Navigate(new Uri("/Login.xaml", UriKind.Relative));
+                    this.NavigationService.Navigate(new Uri("/Views/Login.xaml", UriKind.Relative));
                 }
             }
         }
@@ -70,7 +70,7 @@ namespace GrjCnblogsForWP8.Views
                 var dialogResult = MessageBox.Show("您尚未登录，请先登录。", "提示", MessageBoxButton.OKCancel);
                 if (dialogResult == MessageBoxResult.OK)
                 {
-                    this.NavigationService.Navigate(new Uri("/Login.xaml", UriKind.Relative));
+                    this.NavigationService.Navigate(new Uri("Views/Login.xaml", UriKind.Relative));
                 }
                 else
                 {
@@ -108,6 +108,7 @@ namespace GrjCnblogsForWP8.Views
                 IsLoading = false;
             }
             IsLoading = true;
+            this.rdbPublic.Focus();
             request = HttpWebRequest.CreateHttp(Constants.IngPublishIng);
             request.Method = "POST";
             request.ContentType = "application/json; charset=utf-8";

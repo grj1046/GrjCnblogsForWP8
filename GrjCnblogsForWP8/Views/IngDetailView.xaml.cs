@@ -46,9 +46,11 @@ namespace GrjCnblogsForWP8.Views
 
         protected override void OnBackKeyPress(CancelEventArgs e)
         {
+            //点击返回键的时候不会触发该事件，之后向后导航的时候才会被触发。
             if (this.borderReplyForm.Visibility == System.Windows.Visibility.Visible)
             {
                 this.borderReplyForm.Visibility = System.Windows.Visibility.Collapsed;
+                e.Cancel = true;
                 return;
             }
             base.OnBackKeyPress(e);
@@ -89,8 +91,8 @@ namespace GrjCnblogsForWP8.Views
                 return;
 
             string strContent = detail.IngContent;
-            if (strContent.Length > 15)
-                strContent = strContent.Substring(0, 15) + "...";
+            //if (strContent.Length > 15)
+            //    strContent = strContent.Substring(0, 15) + "...";
 
             this.runReplyTo.Text = detail.AuthorName;
             this.runReplyContent.Text = strContent;

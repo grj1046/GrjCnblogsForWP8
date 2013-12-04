@@ -141,6 +141,9 @@
     <Compile Include="Views\PublishIng.xaml.cs">
       <DependentUpon>PublishIng.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ReplyIngView.xaml.cs">
+      <DependentUpon>ReplyIngView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -180,6 +183,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PublishIng.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReplyIngView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -134,4 +134,7 @@
   <data name="AppBarMenuItemText" xml:space="preserve">
     <value>菜单项</value>
   </data>
+  <data name="ApplicationTitleIng" xml:space="preserve">
+    <value>闪存 - 博客园 - 将一闪而过的念头存下来</value>
+  </data>
 </root>
